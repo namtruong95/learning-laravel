@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler
 {
@@ -81,11 +82,11 @@ class Handler extends ExceptionHandler
                 break;
         }
 
-
-        return $request->is('api/*')
+        return in_array($request->header('Accept'), ['application/json', '*/*'])
             ? response()->json([
                 'message' => $message,
                 'errors'  => $errors,
-            ], $statusCode) : response($message, 400);
+                ], $statusCode)
+            : response($message, 400);
     }
 }

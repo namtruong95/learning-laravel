@@ -11,12 +11,14 @@ class RegisterController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $input = $request->all();
+        $data = $request->validated();
+
         $user = new User();
-        $user->name = $input['name'];
-        $user->email = $input['email'];
-        $user->password = Hash::make($input['password']);
-        $user->role = 2;
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->role = User::ROLE_USER;
 
         $user->save();
 

@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 2;
+
     use Notifiable;
 
     /**
@@ -29,17 +32,17 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $dates = [
+        'email_verified_at',
     ];
 
     public function isAdmin()
     {
-        return $this->role === 1;
+        return $this->role === User::ROLE_ADMIN;
     }
 
     /**
