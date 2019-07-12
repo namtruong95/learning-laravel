@@ -4,6 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,8 +48,44 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+
+        $statusCode  = 400;
+        $errors      = [];
+        $message     = 'has error';
+
+        switch (true) {
+            case $e instanceof ValidationException:
+                $message = 'errors validation';
+                $statusCode = 422;
+                $errors = $e->errors();
+                break;
+
+            case $e instanceof AuthenticationException:
+                $message = 'Unauthenticated';
+                $statusCode = 401;
+                break;
+
+            case $e instanceof NotFoundHttpException:
+                $message = 'Route Not Found';
+                $statusCode = $e->getStatusCode();
+                break;
+
+            case $e instanceof AuthorizationException:
+                $message = 'Unauthorization';
+                $statusCode = 403;
+
+                break;
+            default:
+                break;
+        }
+
+
+        return $request->is('api/*')
+            ? response()->json([
+                'message' => $message,
+                'errors'  => $errors,
+            ], $statusCode) : response($message, 400);
     }
 }
