@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\User;
-use App\Policies\PagePolicy;
+use App\Policies\AdminPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => PagePolicy::class,
+        User::class => AdminPolicy::class,
     ];
 
     /**
@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::after(function ($user, $ability, $result, $arguments) {
-            echo $user;
+            // echo $user;
         });
     }
 }

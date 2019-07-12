@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PagePolicy
+class AdminPolicy
 {
     use HandlesAuthorization;
 
@@ -21,11 +21,7 @@ class PagePolicy
 
     public function admin(User $user)
     {
-        return $user->isAdmin();
-    }
 
-    public function user(User $user)
-    {
-        return ! $user->isAdmin();
+        return $user->isAdmin();
     }
 }

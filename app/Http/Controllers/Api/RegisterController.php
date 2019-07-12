@@ -4,23 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class RegisterController extends Controller
 {
     public function register(RegisterRequest $request)
     {
         $input = $request->all();
-        dd($request);
-        // $user = new User();
-        // $user->name = $input['name'];
-        // $user->email = $input['email'];
-        // $user->password = $input['password'];
+        $user = new User();
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->password = Hash::make($input['password']);
+        $user->role = 2;
 
-        // $user->save();
+        $user->save();
 
-        return response()->json([
-            'email' => 1,
-            'password' => 2
-        ]);
+        return response()->json($user);
     }
 }
