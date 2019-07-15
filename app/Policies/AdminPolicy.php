@@ -21,7 +21,6 @@ class AdminPolicy
 
     public function admin(User $user)
     {
-
         return $user->isAdmin();
     }
 }
