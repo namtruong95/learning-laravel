@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Auth\AuthManager;
 
 class AuthController extends Controller
 {
@@ -11,12 +13,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $data = $request->validated();
+
+        if (! $token = auth()->attempt($data)) {
+            return response()->json(['error' => 'Unauthorized'], 400);
         }
 
         return $this->respondWithToken($token);
@@ -66,7 +69,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => (auth() instanceof AuthManager) && auth()->factory()->getTTL() * 60
         ]);
     }
 }
