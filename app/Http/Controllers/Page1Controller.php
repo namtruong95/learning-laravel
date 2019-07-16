@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Page1;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class Page1Controller extends Controller
 {
@@ -18,71 +17,5 @@ class Page1Controller extends Controller
     {
         $user = Auth::user();
         echo $user . 'page 1';
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Page1  $page1
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Page1 $page1)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Page1  $page1
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Page1 $page1)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Page1  $page1
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Page1 $page1)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Page1  $page1
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Page1 $page1)
-    {
-        //
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Concerns\Token;
 
 class AuthController extends Controller
 {
@@ -11,15 +13,18 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $data = $request->validated();
+        $guard = 'admin';
+        $ttl = Token::getTTL($guard);
+
+        if (! $token = auth()->setTTL($ttl)->attempt($data)) {
+            return response()->json(['error' => 'Unauthorized'], 400);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $ttl);
     }
 
     /**
@@ -51,22 +56,25 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        $token = auth()->setTTL(60)->refresh();
+
+        return $this->respondWithToken($token, 60);
     }
 
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
+     * @param int $ttl
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, int $ttl)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => $ttl,
         ]);
     }
 }

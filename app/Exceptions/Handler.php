@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
                 break;
         }
 
-        return in_array($request->header('Accept'), ['application/json', '*/*'])
+        return $request->accepts(['application/json', '*/*'])
             ? response()->json([
                 'message' => $message,
                 'errors'  => $errors,

@@ -102,7 +102,12 @@ return [
     */
 
     'ttl' => env('JWT_TTL', 60),
-
+    'admin' => [
+        'ttl' => 60
+    ],
+    'user' => [
+        'ttl' => 120
+    ],
     /*
     |--------------------------------------------------------------------------
     | Refresh time to live
@@ -275,7 +280,7 @@ return [
         |
         */
 
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
+        'jwt' => \Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -286,7 +291,7 @@ return [
         |
         */
 
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
+        'auth' => \Tymon\JWTAuth\Providers\Auth\Illuminate::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -297,7 +302,7 @@ return [
         |
         */
 
-        'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
+        'storage' => \Tymon\JWTAuth\Providers\Storage\Illuminate::class,
 
     ],
 
