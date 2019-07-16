@@ -22,6 +22,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return response()->json($user);
+        return response()->success($user);
     }
 }

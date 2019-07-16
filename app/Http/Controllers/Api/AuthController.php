@@ -21,7 +21,7 @@ class AuthController extends Controller
         $ttl = Token::getTTL($guard);
 
         if (! $token = auth()->setTTL($ttl)->attempt($data)) {
-            return response()->json(['error' => 'Unauthorized'], 400);
+            return response()->error(['message' => 'email or password is invalid']);
         }
 
         return $this->respondWithToken($token, $ttl);
@@ -34,7 +34,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->success(auth()->user());
     }
 
     /**
@@ -46,7 +46,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->success(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -71,7 +71,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token, int $ttl)
     {
-        return response()->toJSON([
+        return response()->success([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $ttl,

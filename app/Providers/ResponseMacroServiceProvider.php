@@ -24,8 +24,24 @@ class ResponseMacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Response::macro('toJSON', function ($value) {
+        Response::macro('success', function ($value) {
             return Response::json($value);
+        });
+
+        Response::macro('created', function ($value) {
+            return Response::json($value, 200);
+        });
+
+        Response::macro('error', function ($value) {
+            return Response::json($value, 400);
+        });
+
+        Response::macro('unauthorized', function ($value) {
+            return Response::json($value, 401);
+        });
+
+        Response::macro('validator', function ($value) {
+            return Response::json($value, 422);
         });
     }
 }
