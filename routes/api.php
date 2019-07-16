@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout', 'Api\AuthController@logout');
     Route::post('refresh', 'Api\AuthController@refresh');
     Route::get('me', 'Api\AuthController@me');
+
+    // api example call command send mail, can move this to controller
+    Route::get('send-mail', function () {
+        Artisan::call('email:send', [
+            'userId' => 1,
+            '--id' => [1, 2, 6],
+            '--queue' => 'default'
+        ]);
+    });
 
     Route::group(['middleware' => ['can:admin, App\User']], function () {
         Route::get('users', 'Api\UserController@list');

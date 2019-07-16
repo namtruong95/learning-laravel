@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $data = User::all();
 
-        return response()->json([
+        return response()->success([
             'data' => $data
         ]);
     }
