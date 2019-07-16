@@ -22,6 +22,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return response()->success($user);
+        return response()->created($user);
     }
 }

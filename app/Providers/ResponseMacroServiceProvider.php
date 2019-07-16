@@ -29,7 +29,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         });
 
         Response::macro('created', function ($value) {
-            return Response::json($value, 200);
+            return Response::json($value, 201);
         });
 
         Response::macro('error', function ($value) {
