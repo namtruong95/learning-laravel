@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
                 break;
         }
 
-        return in_array($request->header('Accept'), ['application/json', '*/*'])
+        return $request->accepts(['application/json', '*/*'])
             ? response()->json([
                 'message' => $message,
                 'errors'  => $errors,

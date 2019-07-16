@@ -64,7 +64,8 @@
             "@php artisan key:generate --ansi"
         ],
         "lint": [
-            "./vendor/bin/phpcs"
+            "./vendor/bin/phpcs",
+            "./vendor/bin/phpstan analyse"
         ]
     }
 }
