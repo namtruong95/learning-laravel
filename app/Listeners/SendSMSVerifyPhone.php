@@ -3,15 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\UserRegistered;
-
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Exception;
 
-class SendMailVerifyEmail implements ShouldQueue
+class SendSMSVerifyPhone implements ShouldQueue
 {
-    use InteractsWithQueue;
-
     /**
      * The name of the connection the job should be sent to.
      *
@@ -24,7 +19,7 @@ class SendMailVerifyEmail implements ShouldQueue
      *
      * @var string|null
      */
-    public $queue = 'low';
+    public $queue = 'high';
 
     /**
      * The number of times the job may be attempted.
@@ -32,6 +27,7 @@ class SendMailVerifyEmail implements ShouldQueue
      * @var int
      */
     public $tries = 2;
+
     /**
      * Handle the event.
      *
@@ -40,8 +36,7 @@ class SendMailVerifyEmail implements ShouldQueue
      */
     public function handle(UserRegistered $event)
     {
-        echo 'events listener: user registered: send email: ' . $event->user->email . "\n";
-        throw new Exception('asasas');
+        echo 'events listener: user registered: send SMS: ' . $event->user->name . "\n";
     }
 
     public function shouldQueue(UserRegistered $event)
