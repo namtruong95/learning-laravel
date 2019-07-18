@@ -8,10 +8,8 @@ use Illuminate\Events\Dispatcher;
 
 class UserEventSubscriber
 {
-
     /**
      * Handle user login events.
-     *
      */
     public function onUserLogin(UserLogin $event)
     {
@@ -39,9 +37,9 @@ class UserEventSubscriber
             'App\Listeners\UserEventSubscriber@onUserLogin'
         );
 
-        $events->listen(
-            UserRegistered::class,
-            'App\Listeners\UserEventSubscriber@onUserRegister'
-        );
+        // $events->listen(
+        //     UserRegistered::class,
+        //     'App\Listeners\UserEventSubscriber@onUserRegister'
+        // );
     }
 }

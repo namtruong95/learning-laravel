@@ -4,12 +4,26 @@ namespace App\Listeners;
 
 use App\Events\UserRegistered;
 
-// use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Artisan;
 
 class SendMailVerifyEmail implements ShouldQueue
 {
+    use InteractsWithQueue;
+
+    /**
+     * The name of the connection the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $connection = 'redis';
+
+    /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'default';
 
     /**
      * Handle the event.
@@ -19,15 +33,19 @@ class SendMailVerifyEmail implements ShouldQueue
      */
     public function handle(UserRegistered $event)
     {
+        if (true) {
+            $this->delete();
+        }
+    }
 
-        Artisan::call('email:send', [
-            'userId' => $event->user->id,
-            '--queue' => 'default'
-        ]);
+    public function shouldQueue(UserRegistered $event)
+    {
+        return true;
     }
 
     public function failed(UserRegistered $event, $exception)
     {
+        echo 'failed: ' . $event->user->email;
         // handle fail job
     }
 }
