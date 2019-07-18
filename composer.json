@@ -19,6 +19,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
+        "laravel/telescope": "^2.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "nunomaduro/larastan": "^0.3.17",
@@ -65,7 +66,7 @@
         ],
         "lint": [
             "./vendor/bin/phpcs",
-            "./vendor/bin/phpstan analyse"
+            "./vendor/bin/phpstan analyse --no-progress"
         ]
     }
 }
