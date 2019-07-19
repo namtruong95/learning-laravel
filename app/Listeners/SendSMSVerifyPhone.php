@@ -28,6 +28,8 @@ class SendSMSVerifyPhone implements ShouldQueue
      */
     public $tries = 2;
 
+    public $delay = 600;
+
     /**
      * Handle the event.
      *

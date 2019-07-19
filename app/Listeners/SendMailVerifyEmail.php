@@ -41,7 +41,6 @@ class SendMailVerifyEmail implements ShouldQueue
     public function handle(UserRegistered $event)
     {
         echo 'events listener: user registered: send email: ' . $event->user->email . "\n";
-        throw new Exception('asasas');
     }
 
     public function shouldQueue(UserRegistered $event)

@@ -1,0 +1,10 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSave": true,
+    "[html]": {
+        "editor.formatOnSave": false
+    },
+    "[php]": {
+        "editor.formatOnSave": false
+    }
+}

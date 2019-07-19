@@ -24,13 +24,14 @@ class AuthController extends Controller
         $guard = 'admin';
         $ttl = Token::getTTL($guard);
 
-        $user = User::find(1);
+        $user1 = User::find(1);
         $user2 = User::find(2);
 
-        SendMailVerifyEmail::dispatch($user)
-            ->delay(Carbon::now()->addSeconds(10));
+        SendMailVerifyEmail::dispatch($user1)
+            ->onQueue('low')
+            ->delay(Carbon::now()->addMinutes(5));
 
-        event(new UserRegistered($user));
+        event(new UserRegistered($user2));
 
         if (! $token = auth()->setTTL($ttl)->attempt($data)) {
             return response()->error(['message' => 'email or password is invalid']);
