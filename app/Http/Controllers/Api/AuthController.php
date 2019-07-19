@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Concerns\Token;
+use App\Jobs\SendMailVerifyEmail;
+use App\User;
+use App\Events\UserRegistered;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -19,6 +23,14 @@ class AuthController extends Controller
         $data = $request->validated();
         $guard = 'admin';
         $ttl = Token::getTTL($guard);
+
+        $user = User::find(1);
+        $user2 = User::find(2);
+
+        SendMailVerifyEmail::dispatch($user)
+            ->delay(Carbon::now()->addSeconds(10));
+
+        event(new UserRegistered($user));
 
         if (! $token = auth()->setTTL($ttl)->attempt($data)) {
             return response()->error(['message' => 'email or password is invalid']);
