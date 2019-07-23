@@ -6,6 +6,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Events\UserRegistered;
 
 class RegisterController extends Controller
 {
@@ -21,7 +22,7 @@ class RegisterController extends Controller
         $user->role = User::ROLE_USER;
 
         $user->save();
-
+        event(new UserRegistered($user));
         return response()->created($user);
     }
 }
