@@ -13,9 +13,7 @@ class SendRocketChat
     public static function sendRocketChat(string $msg)
     {
         $client = new Client([
-            // Base URI is used with relative requests
             'base_uri' => config('rocket.base_uri'),
-            // You can set any number of default request options.
             'timeout'  => 2.0,
         ]);
 

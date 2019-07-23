@@ -3,11 +3,12 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 
 class Handler extends ExceptionHandler
 {
@@ -75,8 +76,13 @@ class Handler extends ExceptionHandler
             case $e instanceof AuthorizationException:
                 $message = 'Unauthorization';
                 $statusCode = 403;
-
                 break;
+
+            case $e instanceof MaintenanceModeException:
+                $message = 'server has been maintain!';
+                $statusCode = 503;
+                break;
+
             default:
                 break;
         }
