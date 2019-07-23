@@ -7,8 +7,6 @@ use App\Concerns\SendRocketChat;
 
 class RocketChatChannel
 {
-    use SendRocketChat;
-
     /**
      * Send the given notification.
      *
@@ -19,6 +17,6 @@ class RocketChatChannel
     public function send($notifiable, RocketChatNotification $notification)
     {
         $message = $notification->toRocketChat($notifiable);
-        $this->sendRocketChat($message);
+        SendRocketChat::sendRocketChat($message);
     }
 }
