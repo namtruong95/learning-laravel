@@ -13,7 +13,7 @@ class RocketChatChannel
      * Send the given notification.
      *
      * @param  mixed $notifiable
-     * @param  \Illuminate\Notifications\Notification $notification
+     * @param  \App\Notifications\RocketChatNotification $notification
      * @return void
      */
     public function send($notifiable, RocketChatNotification $notification)
