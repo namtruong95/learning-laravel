@@ -49,7 +49,5 @@ class SendSMSVerifyPhone implements ShouldQueue
     public function failed(UserRegistered $event, $exception)
     {
         echo 'failed: ' . $event->user->email . "\n";
-        // $this->delete();
-        // handle fail event
     }
 }
