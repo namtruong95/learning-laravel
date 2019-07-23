@@ -35,4 +35,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['middleware' => ['can:admin, App\User']], function () {
         Route::get('users', 'Api\UserController@list');
     });
+
+    Route::post('send-message', 'Api\SendMessageController@sendMessage');
 });
