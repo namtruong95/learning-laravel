@@ -103,7 +103,7 @@ return [
 
     'ttl' => env('JWT_TTL', 60),
     'admin' => [
-        'ttl' => 60
+        'ttl' => 60000
     ],
     'user' => [
         'ttl' => 120

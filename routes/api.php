@@ -37,4 +37,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     Route::post('send-message', 'Api\SendMessageController@sendMessage');
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('', 'Api\UserController@profile');
+        Route::post('upload', 'Api\FileController@uploadAvatar');
+    });
+    Route::get('files', 'Api\FileController@getAllFiles');
 });
