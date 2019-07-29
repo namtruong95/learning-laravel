@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,5 +70,10 @@ class User extends Authenticatable implements JWTSubject
     public function images()
     {
         return $this->hasMany(\App\Image::class, 'user_id');
+    }
+
+    public function avatarUrl()
+    {
+        return Storage::temporaryUrl($this->avatar_url, Carbon::now()->addMinutes(15));
     }
 }

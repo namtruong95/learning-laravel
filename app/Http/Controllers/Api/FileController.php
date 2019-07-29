@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Image;
-use Carbon\Carbon;
-use App\Jobs\UploadAlbum;
 use App\Jobs\CompressImage;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\AlbumRequest;
@@ -19,7 +17,8 @@ class FileController extends Controller
         $input = $request->validated();
 
         $file = $input['image'];
-        $path = Storage::put('/files', $file);
+
+        $path = Storage::put('user-avatar', $file);
 
         $user = auth()->user();
         Storage::delete($user->avatar_url);
@@ -38,10 +37,6 @@ class FileController extends Controller
 
         $user = auth()->user();
 
-        // UploadAlbum::dispatch($images, $user)
-        //     ->onQueue('low')
-        //     ->delay(Carbon::now()->addSeconds(10));
-
         foreach ($images as $img) {
             $path = Storage::put('/images', $img);
             $image = new Image();
@@ -55,9 +50,7 @@ class FileController extends Controller
             $image->path = $path;
             $image->save();
 
-            CompressImage::dispatch($path)
-                ->onQueue('low')
-                ->delay(Carbon::now()->addSeconds(10));
+            CompressImage::dispatch($path);
         }
 
         return response()->success([

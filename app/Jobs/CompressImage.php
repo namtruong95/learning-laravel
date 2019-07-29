@@ -24,6 +24,7 @@ class CompressImage implements ShouldQueue
     public function __construct(string $image)
     {
         $this->imagePath = $image;
+        $this->onQueue('low');
     }
 
     /**
