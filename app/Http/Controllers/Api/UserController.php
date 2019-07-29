@@ -26,6 +26,8 @@ class UserController extends Controller
             $user->avatar_url = Storage::url($user->avatar_url);
         }
 
+        $user->images = $user->images;
+
         return response()->success($user);
     }
 }

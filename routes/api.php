@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'profile'], function () {
         Route::get('', 'Api\UserController@profile');
         Route::post('upload', 'Api\FileController@uploadAvatar');
+        Route::post('album', 'Api\FileController@uploadAlbum');
+        Route::get('album/all', 'Api\FileController@getAllFile');
+        Route::delete('album/{id}', 'Api\FileController@removeFileAlbum');
     });
-    Route::get('files', 'Api\FileController@getAllFiles');
 });
