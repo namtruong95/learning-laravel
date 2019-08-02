@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'password', 'avatar_url',
     ];
 
     /**
@@ -28,7 +30,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'role'
     ];
 
     /**
@@ -63,5 +65,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function images()
+    {
+        return $this->hasMany(\App\Image::class, 'user_id');
+    }
+
+    public function avatarUrl()
+    {
+        return Storage::temporaryUrl($this->avatar_url, Carbon::now()->addMinutes(15));
     }
 }

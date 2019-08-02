@@ -43,5 +43,11 @@ class ResponseMacroServiceProvider extends ServiceProvider
         Response::macro('validator', function ($value) {
             return Response::json($value, 422);
         });
+
+        Response::macro('notFound', function () {
+            return Response::json([
+                'message' => 'data not found',
+            ], 404);
+        });
     }
 }

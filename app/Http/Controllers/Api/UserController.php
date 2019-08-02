@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
 
 class UserController extends Controller
 {
@@ -15,5 +15,18 @@ class UserController extends Controller
         return response()->success([
             'data' => $data
         ]);
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+
+        if (! empty($user->avatar_url)) {
+            $user->avatar_url = $user->avatarUrl();
+        }
+
+        $user->images = $user->images;
+
+        return response()->success($user);
     }
 }

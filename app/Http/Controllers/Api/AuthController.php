@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
-use App\Concerns\Token;
-use App\Jobs\SendMailVerifyEmail;
 use App\User;
+use App\Concerns\Token;
 use App\Events\UserRegistered;
-use Carbon\Carbon;
+use App\Jobs\SendMailVerifyEmail;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
@@ -27,9 +26,7 @@ class AuthController extends Controller
         $user1 = User::find(1);
         $user2 = User::find(2);
 
-        SendMailVerifyEmail::dispatch($user1)
-            ->onQueue('low')
-            ->delay(Carbon::now()->addMinutes(5));
+        SendMailVerifyEmail::dispatch($user1);
 
         event(new UserRegistered($user2));
 
