@@ -45,4 +45,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('album/all', 'Api\FileController@getAllFile');
         Route::delete('album/{id}', 'Api\FileController@removeFileAlbum');
     });
+
+    Route::resource('class-rooms', 'Api\ClassRoomController');
+    Route::resource('students', 'Api\StudentController');
+    Route::resource('subjects', 'Api\SubjectController');
+    Route::resource('subject-classes', 'Api\SubjectClassController');
+    Route::resource('student-subject-classes', 'Api\StudentsSubjectClassController');
 });

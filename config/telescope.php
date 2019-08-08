@@ -46,7 +46,7 @@ return [
 
     'storage' => [
         'database' => [
-            'connection' => 'mysqltelescope',
+            'connection' => env('TELESCOPE_CONNECTION', 'pgsqltelescope'),
             'chunk' => 1000,
         ],
     ],
