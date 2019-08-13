@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\ClassRoom;
+use App\StudentsSubjectClass;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
@@ -17,11 +19,11 @@ class Student extends Model
 
     public function classRoom()
     {
-        return $this->belongsTo(\App\ClassRoom::class);
+        return $this->belongsTo(ClassRoom::class);
     }
 
     public function studentSubjectClasses()
     {
-        return $this->hasMany(\App\StudentsSubjectClass::class);
+        return $this->hasMany(StudentsSubjectClass::class);
     }
 }

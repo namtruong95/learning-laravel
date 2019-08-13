@@ -33,10 +33,7 @@ class StudentsSubjectClassController extends Controller
     {
         $input = $request->validated();
 
-        $studentsSubjectClass = new StudentsSubjectClass();
-
-        $studentsSubjectClass->student_id = $input['student_id'];
-        $studentsSubjectClass->subject_class_id = $input['subject_class_id'];
+        $studentsSubjectClass = new StudentsSubjectClass($input);
 
         $studentsSubjectClass->save();
 

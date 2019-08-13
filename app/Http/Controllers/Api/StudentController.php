@@ -33,11 +33,7 @@ class StudentController extends Controller
     {
         $input = $request->validated();
 
-        $student = new Student();
-        $student->name = $input['name'];
-        $student->email = $input['email'];
-        $student->date_of_birth = $input['date_of_birth'];
-        $student->class_room_id = $input['class_room_id'];
+        $student = new Student($input);
 
         $student->save();
 

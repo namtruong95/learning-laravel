@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\SubjectClass;
 use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
@@ -17,6 +18,6 @@ class Subject extends Model
 
     public function subjectClasses()
     {
-        return $this->hasMany(\App\SubjectClass::class);
+        return $this->hasMany(SubjectClass::class);
     }
 }

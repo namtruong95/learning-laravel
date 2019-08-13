@@ -33,10 +33,7 @@ class SubjectController extends Controller
     {
         $input = $request->validated();
 
-        $subject = new Subject();
-        $subject->name = $input['name'];
-        $subject->code = $input['code'];
-        $subject->number_of_credits = $input['number_of_credits'];
+        $subject = new Subject($input);
         $subject->save();
 
         return response()->created([

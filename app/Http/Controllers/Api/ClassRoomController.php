@@ -33,9 +33,7 @@ class ClassRoomController extends Controller
     {
         $input = $request->validated();
 
-        $classRoom = new ClassRoom();
-        $classRoom->name = $input['name'];
-        $classRoom->code = $input['code'];
+        $classRoom = new ClassRoom($input);
 
         $classRoom->save();
 
