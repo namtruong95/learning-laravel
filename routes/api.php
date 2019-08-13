@@ -51,4 +51,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('subjects', 'Api\SubjectController');
     Route::resource('subject-classes', 'Api\SubjectClassController');
     Route::resource('student-subject-classes', 'Api\StudentsSubjectClassController');
+    Route::get('statictis-query-builder', 'Api\StatisticController@statisticUsingQueryBuilder');
+    Route::get('statictis-eloquent', 'Api\StatisticController@statisticUsingEloQuent');
 });
