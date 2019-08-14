@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -69,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function images()
     {
-        return $this->hasMany(\App\Image::class, 'user_id');
+        return $this->hasMany(Image::class, 'user_id');
     }
 
     public function avatarUrl()

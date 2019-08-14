@@ -2,25 +2,22 @@
 
 namespace App;
 
-use App\User;
+use App\Student;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
-class Post extends Model
+class ClassRoom extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'content', 'user_id'
+        'name', 'code',
     ];
 
-    public function user()
+    public function students()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Student::class);
     }
 }

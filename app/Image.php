@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +19,7 @@ class Image extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->first();
+        return $this->belongsTo(User::class)->first();
     }
 
     public function imagePath()
